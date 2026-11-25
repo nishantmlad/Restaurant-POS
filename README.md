@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="apps/web/public/brand-lockup.png" alt="Vetron OrderRestro" width="520">
+<img src="docs/assets/brand-lockup.svg" alt="Vetron OrderRestro" width="580">
 
 <img src="docs/orderrestro-cover.jpg" alt="Illustrative evening scene in an independent restaurant" width="100%">
 
@@ -21,12 +21,12 @@ dine-in, takeaway, delivery and kitchen operations.
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](./CONTRIBUTING.md)
 [![Status](https://img.shields.io/badge/status-active%20development-orange.svg)](./ROADMAP.md)
 
-Developed by [NodeDR Infotech Private Limited](https://www.nodedr.com/)
+Developed by **Vetron**
 
-**[Try OrderRestro](https://orderrestro.nodedr.com/)** · **[Case study](https://www.raktimranjit.com/projects/orderrestro)** · **[Maintainer: Raktim Ranjit](https://www.raktimranjit.com/)**
+**[Try OrderRestro](https://orderrestro.vetron.com/)** · **[Case study](https://www.raktimranjit.com/projects/orderrestro)** · **[Maintainer: Vetron Team](https://www.raktimranjit.com/)**
 
 <p align="center">
-  <img src="docs/assets/hero-animated.svg" alt="Nodedr OrderRestro: animated overview with an illustrative sample screen" width="100%">
+  <img src="docs/assets/hero-animated.svg" alt="Vetron OrderRestro: animated overview with an illustrative sample screen" width="100%">
 </p>
 
 
@@ -45,7 +45,7 @@ Developed by [NodeDR Infotech Private Limited](https://www.nodedr.com/)
 
 ## What this is
 
-**Nodedr OrderRestro** is a purpose-built, offline-first Restaurant
+**Vetron OrderRestro** is a purpose-built, offline-first Restaurant
 Management System for restaurants, cafés, coffee shops, bakeries, fast
 food, fine dining, bars, food courts, cloud kitchens, and multi-branch
 chains. The whole stack — Postgres, API, and web app — runs on one local
@@ -53,10 +53,9 @@ server on the restaurant's own LAN: order-taking, billing, KDS, and
 printing all keep working with the WAN cable unplugged. No subscription,
 no forced cloud dependency, self-hosted by design.
 
-It's a sister project to [`nodedr-pos`](https://github.com/Raktim94/nodedr-pos)
-(the retail-shop POS), reusing its proven patterns — auth/session model,
-receipt rendering, ESC/POS printing, currency-rounding discipline — but
-built as its own codebase, because restaurant floor/kitchen/reservation
+It shares proven architectural patterns — auth/session model,
+receipt rendering, ESC/POS printing, currency-rounding discipline — but is
+built as its own dedicated codebase, because restaurant floor/kitchen/reservation
 operations and retail shop billing are different enough domains that
 forcing one schema to serve both would have compromised both. See
 [`PROJECT.md`](./PROJECT.md) for the full rationale.
@@ -142,14 +141,14 @@ by phase.
 | 2 | Table & Reservation Management — visual floor plan, booking, waitlist, QR table ordering, table transfer | ✅ |
 | 3 | Kitchen Management (KDS) — display, KOTs, multi-station routing, prep tracking, performance reporting | ✅ |
 | 4 | Menu Management — categories, modifier groups, combos, seasonal menus, availability scheduling | ✅ |
-| 5 | Inventory & Store Management — ingredients, recipe costing, POs, suppliers, GRN, waste, batch/lot | ✅ |
+| 5 | Inventory & Store Management — ingredients, recipe costing with chef unit conversion (`tbsp`, `tsp`, `cup`, `g`, `ml`), real-time low-stock alerts with chime & vibration, dynamic sidebar badge counters, POs, suppliers, GRN, waste, batch/lot | ✅ |
 | 6 | Procurement — vendor quotations, purchase requests/orders, invoices, supplier payments, and supplier performance | ✅ core · 🚧 returns, price variance, reorder suggestions |
 | 7 | CRM — profiles, loyalty points, memberships, gift vouchers, feedback, visit history | ✅ |
 | 8 | Staff Management — accounts & roles, attendance (clock in/out), shift scheduling with clash checks, leave, payroll from clocked hours, tip pool split by hours | ✅ |
 | 9 | Accounting — expenses, nightly cash close with variance, profit & loss, balance sheet, budgets vs actual, bank-statement reconciliation, tax summary by rate | ✅ |
 | 10 | Delivery Management — zones by pincode, fee/minimum/ETA, driver assignment, status flow | ✅ · 🚧 live GPS, 3rd-party platforms |
 | 11 | Online Ordering — QR table ordering with modifiers, call waiter, request bill, click & collect, scheduled orders | ✅ |
-| 12 | Branch Management — branch switcher, cross-branch overview, branch-to-branch stock transfers | ✅ |
+| 12 | Branch Management — in-app branch creation (+ Add branch modal), instant branch switcher, cross-branch overview, branch-to-branch stock transfers | ✅ |
 | 13 | Analytics — live dashboard plus 18 reports (peak hours, food cost & margins, retention…) with print, CSV, Excel and PDF export, and scheduled report emails | ✅ |
 | 14 | Marketing — coupons, happy-hour discounts, email (your SMTP) / SMS / WhatsApp campaigns with opt-out | ✅ |
 | 15 | Finance — daily cash closing, expenses, monthly budgets | ✅ · 🚧 petty cash, expense approvals |
@@ -157,7 +156,7 @@ by phase.
 | 17 | Documents — SOPs, contracts, recipes, purchase paperwork, with file attachments (PDF, images, Office) | ✅ |
 | 18 | Security — RBAC, audit log, two-factor sign-in with recovery codes, backup/restore, session expiry, PIN login | ✅ |
 | 19 | Integrations — **UPI QR payments with payment-received sound**, customer-facing second screen, direct-USB ESC/POS printing + cash drawer, signed webhooks, SMTP email, REST/Swagger and [API & MCP server](./docs/integrations-api.md) | ✅ · 🚧 payment-gateway checkout, accounting & delivery-platform connectors |
-| 20 | Admin Panel — restaurant/branch settings, per-branch tax regime, UPI payee, roles, permissions | ✅ |
+| 20 | Admin Panel — restaurant/branch settings, in-app multi-branch creation, per-branch tax regime, UPI payee, roles, permissions | ✅ |
 
 Already shipped and running against real Docker/Postgres today: auth +
 RBAC, full menu management (incl. combo meals), floor/table view with
@@ -166,12 +165,18 @@ menu view, POS order-taking with modifiers, KOT generation routed to
 kitchen stations (priority/reprint/performance reporting), a live Kitchen
 Display Screen, billing + checkout (tips, split-bill calculator, gift
 cards, loyalty points, refunds), customer CRM, a real-time dashboard, and
-inventory & store management — ingredients, weighted-average recipe
-costing, suppliers, purchase orders, goods receipts with batch/lot +
-expiry tracking, FIFO waste logging, and automatic ingredient deduction
-on checkout (combo-aware, never blocks a sale on a stock shortfall).
-Also shipped: printable receipts (opens the browser's print dialog, same
-"any printer, or Save as PDF" approach as [`nodedr-pos`](https://github.com/Raktim94/nodedr-pos)),
+advanced inventory & store management.
+
+### Key Advanced Capabilities Added:
+- **Real-Time Low Stock Alert System**: Audible chime & vibration alerts whenever ingredient stock dips below reorder thresholds. Pushes real-time WebSocket notifications (`notification.created`) straight to the top-bar bell with smart 2-hour rate limiting to eliminate alert fatigue during peak rush, and 1-click navigation directly to affected ingredients.
+- **Dynamic Sidebar Navigation Badges**: Live numeric counter pills on navigation items (e.g. `Inventory [3]`) updating reactively across clients without needing to visit the page.
+- **Interactive Low Stock Dashboard Breakdown**: Visual deficit progress bars and direct one-click purchase order reordering right on the main dashboard.
+- **Culinary Recipe & Ingredient Unit Conversion**: Natural chef units (`tbsp`, `tsp`, `cup`, `g`, `kg`, `ml`, `l`, `piece`) seamlessly convert to bulk storage units, tracking fractional ingredient depletion with exact precision.
+- **Smart Stock Deduction & Refund Restock Reversal**: Server-authoritative FIFO depletion on bill settlement, with automatic stock restoration / restock reversal when items or orders are refunded/reverted.
+- **In-App Multi-Branch Creation & Live Switching**: In-app modal dialog (`+ Add new branch`) from both the top branch switcher and Settings to provision new outlets with unique tax regimes, GSTIN, addresses, and currency, with instant context switching across POS, KDS, tables, and inventory.
+
+Also shipped: printable receipts (opens the browser's print dialog, versatile
+"any printer, or Save as PDF" approach),
 a Settings area (restaurant + branch details, per-branch tax regime — India
 GST/US Sales Tax/EU VAT/Spain IVA, tax-inclusive or -exclusive menu
 pricing) and staff account management (create/deactivate staff, assign
@@ -179,12 +184,14 @@ roles) under **Settings** in the sidebar, photo upload on menu items, and
 an English/Spanish/French language switcher on the guest-facing QR
 ordering page and staff sidebar.
 
-## Why OrderRestro
+## Why Vetron OrderRestro
 
 - **UPI-first checkout (India)** — pick UPI and a QR for the exact bill
   amount appears at the till *and* on the customer-facing screen; a
   "payment received" chime plays when the sale is closed. No gateway fees,
   money goes straight to your UPI id. See the [tutorial](./TUTORIAL.md#upi-qr-payments-and-the-customer-display).
+- **Proactive Kitchen & Inventory Intelligence** — Real-time KDS dispatch, audible low-stock alerts, live sidebar counters, and automatic recipe ingredient deduction and refund restocking.
+- **Multi-Branch Multi-Outlet Ready** — Provision new branches on the fly directly in the app, switch locations with one click, and manage isolated stock, pricing, and staff per outlet.
 - **Runs without the internet** — one Docker Compose stack on a local
   server; billing, KDS and printing survive a dead WAN link.
 - **Your data, your server** — AGPL-3.0, no per-terminal licence, no
@@ -344,7 +351,7 @@ already bundled, which is all this project requires.
 ### One-click install
 
 ```bash
-git clone https://github.com/Raktim94/nodedr-restaurant-pos.git && cd nodedr-restaurant-pos && ./install.sh
+git clone https://github.com/Vetron/vetron-orderrestro.git && cd vetron-orderrestro && ./install.sh
 ```
 
 [`install.sh`](install.sh) generates a `.env` with random secrets (only if
@@ -365,11 +372,11 @@ If you'd rather run each step yourself (e.g. to set your own secrets instead
 of generated ones):
 
 ```bash
-git clone https://github.com/Raktim94/nodedr-restaurant-pos.git
-cd nodedr-restaurant-pos
+git clone https://github.com/Vetron/vetron-orderrestro.git
+cd vetron-orderrestro
 cp .env.example .env        # edit JWT_SECRET / POSTGRES_PASSWORD for anything beyond local dev
 docker compose up -d --build
-docker exec nodedr-restaurant-backend npx ts-node prisma/seed.ts   # optional: demo data + login; upsert-based, safe to re-run
+docker compose exec backend npx ts-node prisma/seed.ts   # optional: demo data + login; upsert-based, safe to re-run
 ```
 
 ### Local dev (no Docker for the apps)
@@ -493,8 +500,7 @@ This project follows the [Contributor Covenant](./CODE_OF_CONDUCT.md).
 
 ## License
 
-Copyright © 2026 [Nodedr Infotech Private Limited](https://www.nodedr.com/)
-and Raktim Ranjit. Licensed under the
+Copyright © 2026 Vetron Systems. Licensed under the
 [GNU Affero General Public License v3.0](./LICENSE) (AGPL-3.0). In short:
 you're free to self-host, use, and modify this software for your
 restaurant or business. If you modify it and run that modified version
@@ -508,7 +514,7 @@ See [`MAINTAINERS.md`](./MAINTAINERS.md) for project maintainers.
 ---
 
 <div align="center">
-<img src="apps/web/public/logo.png" alt="Nodedr OrderRestro" width="72">
+<img src="apps/web/public/logo.png" alt="Vetron OrderRestro" width="72">
 </div>
 
 

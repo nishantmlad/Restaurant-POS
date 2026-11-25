@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="220" viewBox="0 0 800 220" fill="none">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0b0f19" />
+      <stop offset="50%" stop-color="#111827" />
+      <stop offset="100%" stop-color="#0d1117" />
+    </linearGradient>
+    <linearGradient id="brandOrange" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f97316" />
+      <stop offset="50%" stop-color="#fb923c" />
+      <stop offset="100%" stop-color="#ef4444" />
+    </linearGradient>
+    <linearGradient id="borderGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#334155" />
+      <stop offset="50%" stop-color="#f97316" stop-opacity="0.4" />
+      <stop offset="100%" stop-color="#334155" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="12" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Background Card -->
+  <rect x="2" y="2" width="796" height="216" rx="20" fill="url(#bgGrad)" stroke="url(#borderGrad)" stroke-width="1.5" />
+
+  <!-- Subtle glow orb behind emblem -->
+  <circle cx="150" cy="110" r="60" fill="#f97316" opacity="0.12" filter="url(#glow)" />
+
+  <!-- Brand Emblem Container -->
+  <g transform="translate(85, 45)">
+    <!-- Outer Shield / Hex Tile -->
+    <rect x="0" y="0" width="130" height="130" rx="26" fill="#151d2f" stroke="#334155" stroke-width="1.5" />
+    <rect x="4" y="4" width="122" height="122" rx="22" fill="none" stroke="url(#brandOrange)" stroke-width="2" opacity="0.85" />
+
+    <!-- Stylized 'V' & Fork/Spoon Geometry -->
+    <!-- Fork left tine -->
+    <path d="M48 38 L48 58 Q48 68 56 72 L56 94" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M42 38 L42 54" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" />
+    <path d="M54 38 L54 54" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" />
+
+    <!-- Knife/Spoon right tine -->
+    <path d="M82 38 Q74 54 74 68 L74 94" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+
+    <!-- Dynamic Center 'V' intersecting nexus -->
+    <path d="M38 48 L65 100 L92 48" stroke="url(#brandOrange)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" />
+
+    <!-- Radiant Accent Node -->
+    <circle cx="65" cy="100" r="5" fill="#f97316" />
+    <circle cx="38" cy="48" r="3.5" fill="#fb923c" />
+    <circle cx="92" cy="48" r="3.5" fill="#fb923c" />
+  </g>
+
+  <!-- Typography Lockup -->
+  <!-- Main Name: VETRON -->
+  <text x="250" y="105" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="52" font-weight="900" fill="#ffffff" letter-spacing="3">
+    VETRON
+  </text>
+
+  <!-- Subtitle: ORDERRESTRO -->
+  <text x="254" y="138" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700" fill="url(#brandOrange)" letter-spacing="7">
+    ORDERRESTRO
+  </text>
+
+  <!-- Tagline Pill Badge -->
+  <g transform="translate(254, 154)">
+    <rect x="0" y="0" width="460" height="26" rx="13" fill="#1e293b" opacity="0.6" stroke="#334155" stroke-width="1" />
+    <circle cx="14" cy="13" r="4" fill="#22c55e" />
+    <text x="26" y="17.5" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="11" font-weight="600" fill="#cbd5e1" letter-spacing="1">
+      SELF-HOSTED RESTAURANT POS · KDS · LIVE INVENTORY
+    </text>
+  </g>
+</svg>
+
