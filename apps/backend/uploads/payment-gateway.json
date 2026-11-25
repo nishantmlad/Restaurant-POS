@@ -1,0 +1,8 @@
+{
+  "enabled": true,
+  "provider": "RAZORPAY",
+  "testMode": true,
+  "autoVerifyKiosk": true,
+  "keyId": "rzp_test_U3xwCCDPfmhJ6o",
+  "keySecret": "0tu7NInUci2VAxw4j75Z6xHv"
+}
