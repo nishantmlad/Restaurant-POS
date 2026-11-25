@@ -1,6 +1,6 @@
 # Accessibility statement
 
-Last updated 15 August 2026. Also published as a live page at `/docs/accessibility` on any running deployment.
+Last updated 25 November 2026. Also published as a live page at `/docs/accessibility` on any running deployment.
 
 ## Our target
 
@@ -13,7 +13,7 @@ This statement is a good-faith, current snapshot — not a certification. We hav
 - Semantic HTML and landmark regions (`header`/`main`/`nav`) throughout, not div soup with click handlers standing in for real interactive elements.
 - Keyboard navigation for every interactive control, including the mobile navigation menu, tab panels, and form flows — nothing is mouse-only.
 - Visible focus indicators (focus-visible rings) on all interactive elements, not suppressed via `outline: none`.
-- Color contrast checked against the design system's own light and dark token pairs (see [`DESIGN_SYSTEM.md`](./DESIGN_SYSTEM.md)) for text-on-background combinations used in primary UI.
+- Color contrast checked against the design system's own light and dark token pairs for text-on-background combinations used in primary UI.
 - All animation respects `prefers-reduced-motion` — page transitions, scroll reveals, and counters resolve instantly instead of animating when the OS setting requests it.
 - Alt text on informative images; decorative graphics are marked `aria-hidden` so screen readers don't announce them.
 - Forms (login, signup, checkout) associate every input with a visible label and surface validation errors as text, not color alone.
@@ -32,4 +32,4 @@ We have not yet performed a full manual audit with users who rely on assistive t
 
 ## Reporting a problem
 
-If you encounter an accessibility barrier anywhere in this product, please [open an issue on GitHub](https://github.com/Raktim94/nodedr-restaurant-pos/issues) with as much detail as you can (page, assistive technology used, what you expected vs. what happened). This is an open-source project — accessibility fixes are treated as real bugs, not feature requests.
+If you encounter an accessibility barrier anywhere in this product, please open an issue on GitHub with as much detail as you can (page, assistive technology used, what you expected vs. what happened). This is an open-source project — accessibility fixes are treated as real bugs, not feature requests.
