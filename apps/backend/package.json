@@ -1,8 +1,8 @@
 {
-  "name": "@nodedr-restaurant/backend",
+  "name": "@vetron-restaurant/backend",
   "version": "0.0.1",
-  "description": "Nodedr OrderRestro API",
-  "author": "Raktim Ranjit <mail@raktimranjit.com> (https://github.com/Raktim94)",
+  "description": "Vetron OrderRestro API",
+  "author": "Vetron <info@vetron.in>",
   "private": true,
   "license": "AGPL-3.0-only",
   "scripts": {
