@@ -2,8 +2,6 @@
 
 <img src="docs/assets/brand-lockup.svg" alt="Vetron OrderRestro" width="580">
 
-<img src="docs/orderrestro-cover.jpg" alt="Illustrative evening scene in an independent restaurant" width="100%">
-
 **Open-source, self-hosted restaurant POS & management system** — billing
 with **UPI QR payments**, tables, kitchen display (KDS), reservations,
 inventory, **staff attendance & payroll**, accounting, reports, CRM/loyalty
@@ -23,7 +21,7 @@ dine-in, takeaway, delivery and kitchen operations.
 
 Developed by **Vetron**
 
-**[Try OrderRestro](https://orderrestro.vetron.com/)** · **[Case study](https://www.raktimranjit.com/projects/orderrestro)** · **[Maintainer: Vetron Team](https://www.raktimranjit.com/)**
+**[Try OrderRestro](https://orderrestro.vetron.in/)**· **[Maintainer: Vetron Team](https://www.vetron.in/)**
 
 <p align="center">
   <img src="docs/assets/hero-animated.svg" alt="Vetron OrderRestro: animated overview with an illustrative sample screen" width="100%">
@@ -388,7 +386,7 @@ service from Docker Compose).
 pnpm install
 docker compose up -d postgres
 cp apps/backend/.env.example apps/backend/.env   # point DATABASE_URL at your Postgres
-pnpm --filter @nodedr-restaurant/types build
+pnpm --filter @vetron-restaurant/types build
 cd apps/backend && npx prisma migrate dev && npx ts-node prisma/seed.ts && cd ../..
 pnpm dev   # runs backend (:4001) and web (:1995) together via Turborepo
 ```
@@ -422,7 +420,7 @@ docker compose up -d --build
 ```bash
 git pull
 pnpm install
-pnpm --filter @nodedr-restaurant/types build
+pnpm --filter @vetron-restaurant/types build
 cd apps/backend && npx prisma migrate dev && cd ../..
 pnpm dev
 ```
@@ -520,9 +518,9 @@ See [`MAINTAINERS.md`](./MAINTAINERS.md) for project maintainers.
 
 ## Case study
 
-Read the [OrderRestro case study](https://www.raktimranjit.com/projects/orderrestro) for the product background and design decisions.
+Read the [OrderRestro case study](https://github.com/nishantmlad/Restaurant-POS) for the product background and design decisions.
 
-Maintainer: [Raktim Ranjit](https://www.raktimranjit.com/)
+Maintainer: [Vetron](https://www.vetron.in/)
 
 ---
 
