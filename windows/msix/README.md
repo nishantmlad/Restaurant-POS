@@ -189,12 +189,12 @@ What to do about it:
 
 1. ~~`AppxManifest.xml` → `Identity/@Publisher`~~ — **done.** Set to the
    real Partner Center-issued value (`CN=11C721FC-E399-4888-B532-
-   7BFCD5C491B3`, PublisherDisplayName "NODEDR INFOTECH LIMITED").
+   7BFCD5C491B3`, PublisherDisplayName "VETRON IT SERVICES").
    `validate-msix.ps1` fails loudly if this ever regresses to the
    placeholder.
 2. ~~`Identity/@Name`~~ — **done.** Set to the real Store-reserved package
-   identity `NODEDRINFOTECHLIMITED.NodedrOrderRestro` (Store ID `9NVPNLWW2FZ4`,
-   Package Family Name `NODEDRINFOTECHLIMITED.NodedrOrderRestro_wsh4jzg5a6682`),
+   identity `VETRONITSERVICES.VetronOrderRestro` (Store ID `9NVPNLWW2FZ4`,
+   Package Family Name `VETRONITSERVICES.VetronOrderRestro_wsh4jzg5a6682`),
    from Partner Center's "View product identity" page.
 3. **Signing** — real Store submissions are signed automatically by the
    Store on ingestion; you do not need your own certificate for Store
@@ -233,7 +233,7 @@ Per this project's own "don't fake test results" rule:
   ("`AppConfig` lives outside the install directory, so it should
   survive") — it's now an actual round-trip test.
 - **Correct app identity/signing: verified.** `AppxManifest.xml` carries
-  the real Partner Center identity (`NODEDRINFOTECHLIMITED.NodedrOrderRestro`,
+  the real Partner Center identity (`VETRONITSERVICES.VetronOrderRestro`,
   `CN=11C721FC-E399-4888-B532-7BFCD5C491B3`); the CI self-signed test
   cert's subject is read from that same manifest field so install
   succeeds only when they genuinely match, the same constraint Windows

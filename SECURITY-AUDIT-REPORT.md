@@ -1,4 +1,4 @@
-# Security audit report — 15 August 2026
+# Security audit report — 25 November 2026
 
 Scope: full-repository security audit of Vetron OrderRestro (auth/sessions,
 RBAC/multi-tenant isolation, API input validation/uploads/CORS/secrets,
