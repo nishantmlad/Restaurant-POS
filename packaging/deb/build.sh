@@ -30,7 +30,7 @@ Priority: optional
 Architecture: $arch
 Installed-Size: $size
 Depends: docker.io | docker-ce, docker-compose-v2 | docker-compose-plugin, systemd, curl
-Maintainer: Raktim Ranjit <ranjitraktim5@gmail.com>
+Maintainer: Vetron <rinfo@vetron.com>
 Homepage: $HOMEPAGE
 Description: $SHORTDESC
 $LONGDESC

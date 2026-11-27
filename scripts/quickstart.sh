@@ -16,8 +16,8 @@
 # place rather than clobbered.
 set -euo pipefail
 
-REPO_URL="https://github.com/Raktim94/nodedr-restaurant-pos.git"
-REPO_DIR="nodedr-restaurant-pos"
+REPO_URL="https://github.com/nishantmlad/Restaurant-POS.git"
+REPO_DIR="vetron-pos"
 SUDO=""
 
 install_docker_linux() {

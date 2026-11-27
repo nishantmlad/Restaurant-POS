@@ -1,6 +1,6 @@
 [Unit]
 Description=OrderRestro (Docker Compose)
-Documentation=https://orderrestro.nodedr.com/docs
+Documentation=https://orderrestro.vetron.in/docs
 Requires=docker.service
 After=docker.service network-online.target
 Wants=network-online.target
