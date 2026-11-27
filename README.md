@@ -349,7 +349,7 @@ already bundled, which is all this project requires.
 ### One-click install
 
 ```bash
-git clone https://github.com/Vetron/vetron-orderrestro.git && cd vetron-orderrestro && ./install.sh
+git clone https://github.com/nishantmlad/Restaurant-POS.git && cd vetron-restaurant-pos && ./install.sh
 ```
 
 [`install.sh`](install.sh) generates a `.env` with random secrets (only if
@@ -370,8 +370,8 @@ If you'd rather run each step yourself (e.g. to set your own secrets instead
 of generated ones):
 
 ```bash
-git clone https://github.com/Vetron/vetron-orderrestro.git
-cd vetron-orderrestro
+git clone https://github.com/nishantmlad/Restaurant-POS.git
+cd vetron-restaurant-pos
 cp .env.example .env        # edit JWT_SECRET / POSTGRES_PASSWORD for anything beyond local dev
 docker compose up -d --build
 docker compose exec backend npx ts-node prisma/seed.ts   # optional: demo data + login; upsert-based, safe to re-run
