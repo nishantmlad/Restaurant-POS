@@ -1,6 +1,6 @@
 "use client";
 
-import { Check, MessageCircle, Pencil, Phone, Printer, X } from "lucide-react";
+import { Check, CheckCircle2, MessageCircle, Pencil, Phone, Printer, X } from "lucide-react";
 import { useState } from "react";
 import { StatusNote, useNoteToast } from "@/components/ui/status-note";
 import { Badge } from "@/components/ui/badge";
@@ -11,6 +11,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { CancelOrderDialog, useCanCancelOrders } from "@/components/orders/cancel-order-dialog";
 import { EditBillDialog } from "@/components/orders/edit-bill-dialog";
 import { ReasonDialog } from "@/components/orders/reason-dialog";
+import { SettleOrderDialog } from "@/components/orders/settle-order-dialog";
 import { hasPermission, useCurrentUser } from "@/hooks/use-auth";
 import { useAcceptOrder, useOrder, useRejectOrder } from "@/hooks/use-orders";
 import { usePrintOrderUsb } from "@/hooks/use-print";
@@ -49,6 +50,7 @@ export function OrderDetailDialog({
   const [cancelOpen, setCancelOpen] = useState(false);
   const [declineOpen, setDeclineOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
+  const [settleOpen, setSettleOpen] = useState(false);
   const customerName = order?.guestName ?? order?.customer?.name ?? "Walk-in guest";
   const pending = order?.status === "OPEN" && order?.acceptance === "PENDING";
   const canCancel = order?.status === "OPEN" && !pending;
@@ -240,15 +242,24 @@ export function OrderDetailDialog({
               </div>
             )}
             {order.status === "OPEN" && !pending && (
-              <Button
-                type="button"
-                variant="ghost"
-                size="sm"
-                className="w-full text-xs text-muted-foreground"
-                onClick={() => branchId && openReceiptPrint(order.id, branchId)}
-              >
-                <Printer className="mr-1.5 h-3.5 w-3.5" /> Print bill / check (provisional)
-              </Button>
+              <>
+                <Button
+                  type="button"
+                  className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold h-10 shadow-sm"
+                  onClick={() => setSettleOpen(true)}
+                >
+                  <CheckCircle2 className="mr-1.5 h-4 w-4" /> Collect Payment & Settle Bill ({formatCurrency(order.totalAmount)})
+                </Button>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  className="w-full text-xs text-muted-foreground"
+                  onClick={() => branchId && openReceiptPrint(order.id, branchId)}
+                >
+                  <Printer className="mr-1.5 h-3.5 w-3.5" /> Print bill / check (provisional)
+                </Button>
+              </>
             )}
             {canCancel && (
               <div className="flex gap-2">
@@ -270,6 +281,15 @@ export function OrderDetailDialog({
             )}
             {order && (
               <>
+                <SettleOrderDialog
+                  open={settleOpen}
+                  onOpenChange={setSettleOpen}
+                  branchId={branchId}
+                  order={order}
+                  onSettled={() => {
+                    onOpenChange(false);
+                  }}
+                />
                 <CancelOrderDialog
                   branchId={branchId}
                   orderId={order.id}

@@ -30,7 +30,7 @@ Priority: optional
 Architecture: $arch
 Installed-Size: $size
 Depends: docker.io | docker-ce, docker-compose-v2 | docker-compose-plugin, systemd, curl
-Maintainer: Vetron <rinfo@vetron.com>
+Maintainer: Vetron <info@vetron.com>
 Homepage: $HOMEPAGE
 Description: $SHORTDESC
 $LONGDESC

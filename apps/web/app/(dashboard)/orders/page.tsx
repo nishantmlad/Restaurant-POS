@@ -30,6 +30,7 @@ import { useMemo, useState } from "react";
 import { ScanOrderInput } from "@/components/orders/scan-order-input";
 import { DeleteOrdersDialog } from "@/components/orders/delete-orders-dialog";
 import { ReasonDialog } from "@/components/orders/reason-dialog";
+import { SettleOrderDialog } from "@/components/orders/settle-order-dialog";
 import { ChannelBadge, TypeBadge } from "@/components/orders/channel-badges";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -55,7 +56,7 @@ import { cn } from "@/lib/utils";
 
 const TABS: { key: OrderTab; label: string; icon: typeof Clock }[] = [
   { key: "pending", label: "Needs Action", icon: AlertCircle },
-  { key: "active", label: "In Kitchen", icon: ChefHat },
+  { key: "active", label: "Active Orders", icon: ChefHat },
   { key: "history", label: "Order History", icon: Receipt },
 ];
 
@@ -149,6 +150,7 @@ export default function OrdersPage() {
   );
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [confirmOpen, setConfirmOpen] = useState(false);
+  const [settleOrder, setSettleOrder] = useState<ManagedOrder | null>(null);
   const visibleSelected = finished.filter((o) => selected.has(o.id)).map((o) => o.id);
   const allSelected = finished.length > 0 && visibleSelected.length === finished.length;
 
@@ -267,7 +269,7 @@ export default function OrdersPage() {
         >
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-              In Kitchen
+              Active Orders
             </span>
             <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-sky-500/10 text-sky-600">
               <ChefHat className="h-4 w-4" />
@@ -282,7 +284,7 @@ export default function OrdersPage() {
             </span>
           </div>
           <div className="mt-2 text-[11px] text-muted-foreground">
-            Food cooking &amp; being prepared
+            Cooking &amp; awaiting settlement
           </div>
         </button>
 
@@ -476,6 +478,7 @@ export default function OrdersPage() {
                 selectable={selectable && (order.status === "PAID" || order.status === "CANCELLED")}
                 selected={selected.has(order.id)}
                 onToggle={() => toggle(order.id)}
+                onSettle={setSettleOrder}
               />
             ))}
           </div>
@@ -490,6 +493,7 @@ export default function OrdersPage() {
                 selectable={selectable && (order.status === "PAID" || order.status === "CANCELLED")}
                 selected={selected.has(order.id)}
                 onToggle={() => toggle(order.id)}
+                onSettle={setSettleOrder}
               />
             ))}
           </Card>
@@ -576,6 +580,13 @@ export default function OrdersPage() {
         open={confirmOpen}
         onOpenChange={setConfirmOpen}
         onDeleted={() => setSelected(new Set())}
+      />
+
+      <SettleOrderDialog
+        open={!!settleOrder}
+        onOpenChange={(open) => !open && setSettleOrder(null)}
+        branchId={branchId}
+        order={settleOrder}
       />
     </div>
   );
@@ -678,12 +689,14 @@ function OrderCard({
   selectable,
   selected,
   onToggle,
+  onSettle,
 }: {
   order: ManagedOrder;
   branchId: string | null;
   selectable: boolean;
   selected: boolean;
   onToggle: () => void;
+  onSettle: (order: ManagedOrder) => void;
 }) {
   const accept = useAcceptOrder(branchId);
   const reject = useRejectOrder(branchId);
@@ -826,8 +839,21 @@ function OrderCard({
               </Button>
             </>
           ) : (
-            /* View & Print for regular orders */
+            /* View, Pay & Print for regular orders */
             <>
+              {order.status !== "PAID" && (
+                <Button
+                  type="button"
+                  size="sm"
+                  className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs h-9 px-3 shrink-0 shadow-xs"
+                  title={`Collect payment (${formatCurrency(order.totalAmount)})`}
+                  onClick={() => onSettle(order)}
+                >
+                  <CheckCircle2 className="h-3.5 w-3.5 mr-1" />
+                  Pay
+                </Button>
+              )}
+
               <Button
                 type="button"
                 variant="outline"
@@ -882,12 +908,14 @@ function OrderRow({
   selectable,
   selected,
   onToggle,
+  onSettle,
 }: {
   order: ManagedOrder;
   branchId: string | null;
   selectable: boolean;
   selected: boolean;
   onToggle: () => void;
+  onSettle: (order: ManagedOrder) => void;
 }) {
   const name = order.guestName ?? order.customer?.name ?? "Walk-in Guest";
   const initials = getInitials(name);
@@ -959,9 +987,24 @@ function OrderRow({
         </div>
       </button>
 
-      {/* Quick Print Action */}
-      {branchId && (
-        <div className="flex items-center gap-1 shrink-0">
+      {/* Quick Actions */}
+      <div className="flex items-center gap-1.5 shrink-0">
+        {order.status !== "PAID" && !isRejected && !isCancelled && !isPending && (
+          <Button
+            type="button"
+            size="sm"
+            className="h-8 px-2.5 text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white"
+            title={`Collect payment (${formatCurrency(order.totalAmount)})`}
+            onClick={(e) => {
+              e.stopPropagation();
+              onSettle(order);
+            }}
+          >
+            <CheckCircle2 className="h-3.5 w-3.5 mr-1" />
+            Pay
+          </Button>
+        )}
+        {branchId && (
           <Button
             type="button"
             variant="ghost"
@@ -975,18 +1018,18 @@ function OrderRow({
           >
             <Printer className="h-4 w-4" />
           </Button>
-          <Button
-            type="button"
-            variant="ghost"
-            size="icon"
-            className="h-8 w-8 text-muted-foreground hover:text-foreground"
-            title="View Details"
-            onClick={() => openEntity("Order", order.id)}
-          >
-            <ArrowRight className="h-4 w-4" />
-          </Button>
-        </div>
-      )}
+        )}
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon"
+          className="h-8 w-8 text-muted-foreground hover:text-foreground"
+          title="View Details"
+          onClick={() => openEntity("Order", order.id)}
+        >
+          <ArrowRight className="h-4 w-4" />
+        </Button>
+      </div>
     </div>
   );
 }
